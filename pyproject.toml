@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecommerce-streaming-analytics"
+version = "0.1.0"
+description = "E-Commerce Streaming Analytics Platform with A/B Testing"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "kaggle>=1.5.16",
+    "dagster>=1.6.0",
+    "dagster-webserver>=1.6.0",
+    "dagster-gcp>=0.21.0",
+    "dagster-aws>=0.21.0",
+    "kafka-python>=2.0.2",
+    "pandas>=2.0.0",
+    "pyarrow>=14.0.0",
+    "google-cloud-bigquery>=3.0.0",
+    "pymongo>=4.0.0",
+    "requests>=2.28.0",
+    "scipy>=1.11.0",
+    "statsmodels>=0.14.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "jupyter>=1.0.0",
+    "numpy>=1.24.0",
+    "pytest>=7.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+ge = ["dagster-ge>=0.2.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ecommerce_analytics*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_ignores = true

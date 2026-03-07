@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-03-01T22:34:08.506391+00:00",
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "results": {
+    "dlq/produce_mixed": {
+      "passed": true,
+      "detail": "1 malformed + 2 valid"
+    },
+    "dlq/valid_processed": {
+      "passed": true,
+      "detail": "processed=154 (expected >=2)"
+    },
+    "dlq/malformed_to_dlq": {
+      "passed": true,
+      "detail": "dlq_sent=1 failed=1"
+    },
+    "dlq/dlq_topic_has_messages": {
+      "passed": true,
+      "detail": "dlq_messages=2"
+    }
+  }
+}

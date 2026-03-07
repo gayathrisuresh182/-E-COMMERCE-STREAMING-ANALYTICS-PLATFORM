@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_008",
+  "experiment_name": "Bundle Discounts (3 items for 10% off)",
+  "variant_stats": {
+    "n_control": 49767,
+    "n_treatment": 49674,
+    "conversions_control": 12391,
+    "conversions_treatment": 14440,
+    "conversion_rate_control": 0.249,
+    "conversion_rate_treatment": 0.2907,
+    "revenue_total_control": 1721440.53,
+    "revenue_total_treatment": 1978515.42
+  },
+  "frequentist": {
+    "p_value": 6.093675645792394e-48,
+    "significant": true,
+    "decision": "LAUNCH",
+    "relative_lift_pct": 15.15,
+    "ci_lower": 3.62,
+    "ci_upper": 6.86,
+    "achieved_power": 1.0,
+    "monthly_revenue_impact": 524000.0
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "LAUNCH",
+  "p_value": 6.093675645792394e-48,
+  "revenue_impact_monthly": 524000.0
+}

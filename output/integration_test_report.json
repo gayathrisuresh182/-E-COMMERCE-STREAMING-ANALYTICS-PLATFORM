@@ -1,0 +1,200 @@
+{
+  "timestamp": "2026-03-01T22:31:23.051867+00:00",
+  "total": 38,
+  "passed": 38,
+  "failed": 0,
+  "score_pct": 100.0,
+  "elapsed": "377.8s",
+  "results": {
+    "batch/refresh_dimensions": {
+      "passed": true,
+      "detail": "exit=0",
+      "ts": "184.9s"
+    },
+    "batch/partitioned_facts/2016-09-15": {
+      "passed": true,
+      "detail": "exit=0",
+      "ts": "221.6s"
+    },
+    "batch/partitioned_facts_summary": {
+      "passed": true,
+      "detail": "1/1 partitions succeeded",
+      "ts": "221.6s"
+    },
+    "batch/refresh_agg_facts": {
+      "passed": true,
+      "detail": "exit=0",
+      "ts": "289.4s"
+    },
+    "batch_validate/stg_orders": {
+      "passed": true,
+      "detail": "rows=99441 cols=['order_id', 'customer_id', 'order_status', 'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date', 'order_estimated_delivery_date']",
+      "ts": "290.2s"
+    },
+    "batch_validate/stg_customers": {
+      "passed": true,
+      "detail": "rows=99441 cols=['customer_id', 'customer_unique_id', 'customer_zip_code_prefix', 'customer_city', 'customer_state', 'customer_state_name', 'customer_lat', 'customer_lng']",
+      "ts": "290.3s"
+    },
+    "batch_validate/dim_customers": {
+      "passed": true,
+      "detail": "rows=99441 cols=['customer_id', 'customer_unique_id', 'customer_zip_code_prefix', 'customer_city', 'customer_state', 'customer_state_name', 'customer_lat', 'customer_lng']",
+      "ts": "290.4s"
+    },
+    "batch_validate/dim_products": {
+      "passed": true,
+      "detail": "rows=32951 cols=['product_id', 'product_category_name', 'product_name_lenght', 'product_description_lenght', 'product_photos_qty', 'product_weight_g', 'product_length_cm', 'product_height_cm']",
+      "ts": "290.4s"
+    },
+    "batch_validate/dim_sellers": {
+      "passed": true,
+      "detail": "rows=3095 cols=['seller_id', 'seller_zip_code_prefix', 'seller_city', 'seller_state', 'seller_lat', 'seller_lng', 'total_orders_fulfilled', 'avg_review_score']",
+      "ts": "290.4s"
+    },
+    "batch_validate/dim_geography": {
+      "passed": true,
+      "detail": "rows=19015 cols=['geolocation_zip_code_prefix', 'geolocation_lat', 'geolocation_lng', 'geolocation_city', 'geolocation_state', 'geography_key', 'region']",
+      "ts": "290.4s"
+    },
+    "batch_validate/dim_dates": {
+      "passed": true,
+      "detail": "rows=730 cols=['date', 'date_key', 'year', 'quarter', 'month', 'month_name', 'week_of_year', 'day_of_week']",
+      "ts": "290.5s"
+    },
+    "batch_validate/fct_order_items": {
+      "passed": true,
+      "detail": "rows=112650 cols=['order_item_fact_key', 'order_id', 'fact_key', 'order_item_id', 'product_key', 'seller_key', 'quantity', 'price']",
+      "ts": "290.5s"
+    },
+    "batch_validate/fct_experiment_results": {
+      "passed": true,
+      "detail": "rows=20 cols=['experiment_id', 'experiment_name', 'variant', 'unique_users', 'total_orders', 'converting_users', 'conversion_rate', 'total_revenue']",
+      "ts": "290.5s"
+    },
+    "batch_validate/fct_product_performance": {
+      "passed": true,
+      "detail": "rows=32951 cols=['product_key', 'product_category_name_english', 'product_category_group', 'units_sold', 'total_revenue', 'total_freight', 'avg_price', 'order_count']",
+      "ts": "290.5s"
+    },
+    "batch_validate/fct_seller_performance": {
+      "passed": true,
+      "detail": "rows=3095 cols=['seller_key', 'seller_city', 'seller_state', 'seller_region', 'seller_tier', 'total_orders_fulfilled', 'total_revenue', 'total_freight']",
+      "ts": "290.5s"
+    },
+    "stream/kafka_connectivity": {
+      "passed": true,
+      "detail": "",
+      "ts": "291.2s"
+    },
+    "stream/mongodb_connectivity": {
+      "passed": true,
+      "detail": "pre_orders=65 pre_metrics=240",
+      "ts": "291.7s"
+    },
+    "stream/produce_messages": {
+      "passed": true,
+      "detail": "sent=5/5",
+      "ts": "291.8s"
+    },
+    "stream/consume_messages": {
+      "passed": true,
+      "detail": "processed=130 failed=0 throughput=0.0/s",
+      "ts": "304.1s"
+    },
+    "stream/mongodb_orders_written": {
+      "passed": true,
+      "detail": "fct_orders_realtime: 65\u219270 (+5) orders: 70 (expected>=5)",
+      "ts": "304.1s"
+    },
+    "stream/mongodb_no_duplicates": {
+      "passed": true,
+      "detail": "test orders in realtime: 10",
+      "ts": "304.1s"
+    },
+    "stream/consumer_lag": {
+      "passed": true,
+      "detail": "lag=0 (threshold <100)",
+      "ts": "304.3s"
+    },
+    "lambda/stream_sync_job": {
+      "passed": true,
+      "detail": "exit=0",
+      "ts": "352.8s"
+    },
+    "lambda/batch_stream_reconciliation": {
+      "passed": true,
+      "detail": "exit=0",
+      "ts": "377.2s"
+    },
+    "lambda_validate/realtime_orders": {
+      "passed": true,
+      "detail": "rows=70 cols=['order_id', 'customer_id', 'customer_state', 'customer_tier', 'event_timestamp', 'experiment_id']",
+      "ts": "377.2s"
+    },
+    "lambda_validate/realtime_metrics_5min": {
+      "passed": true,
+      "detail": "rows=246 cols=['metric_name', 'window_start', 'metric_value', 'window_end']",
+      "ts": "377.2s"
+    },
+    "lambda_validate/realtime_experiment_results": {
+      "passed": true,
+      "detail": "rows=2 cols=['experiment_id', 'variant', 'clicks', 'conversion_rate', 'conversions', 'impressions']",
+      "ts": "377.2s"
+    },
+    "lambda_validate/consumer_health_metrics": {
+      "passed": true,
+      "detail": "rows=9 cols=['consumer_group', 'topics', 'total_lag', 'partitions', 'status', 'measured_at']",
+      "ts": "377.2s"
+    },
+    "lambda_validate/reconciliation_report": {
+      "passed": true,
+      "detail": "categories={'overlap', 'stream_only', 'totals', 'batch_only'} totals=batch=99441 stream=70 union=99461",
+      "ts": "377.2s"
+    },
+    "quality/completeness_orders": {
+      "passed": true,
+      "detail": "mongo=70 snapshot=70 diff=0.0%",
+      "ts": "377.2s"
+    },
+    "quality/completeness_metrics": {
+      "passed": true,
+      "detail": "mongo=246 snapshot=246",
+      "ts": "377.2s"
+    },
+    "quality/consistency_customers": {
+      "passed": true,
+      "detail": "stg_customer_id_unique=99441 dim=99441",
+      "ts": "377.5s"
+    },
+    "quality/consistency_staging_rows": {
+      "passed": true,
+      "detail": "stg_orders unique_ids=99441",
+      "ts": "377.6s"
+    },
+    "quality/consistency_order_items": {
+      "passed": true,
+      "detail": "fct_order_items rows=112650",
+      "ts": "377.6s"
+    },
+    "quality/accuracy_delivery_after_purchase": {
+      "passed": "True",
+      "detail": "delivery_before_purchase=0/96476",
+      "ts": "377.7s"
+    },
+    "quality/accuracy_positive_prices": {
+      "passed": "True",
+      "detail": "negative_prices=0/112650",
+      "ts": "377.8s"
+    },
+    "quality/consumer_health_kafka": {
+      "passed": true,
+      "detail": "groups=4 critical=0",
+      "ts": "377.8s"
+    },
+    "quality/consumer_health_mongo": {
+      "passed": true,
+      "detail": "collections=5 total_docs=519",
+      "ts": "377.8s"
+    }
+  }
+}

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Experimentation Report</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 24px; color: #333; }
+    h1 { color: #1a365d; border-bottom: 2px solid #3182ce; padding-bottom: 8px; }
+    h2 { color: #2c5282; margin-top: 24px; }
+    h3 { color: #2b6cb0; margin-top: 20px; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+    th, td { border: 1px solid #cbd5e0; padding: 8px 12px; text-align: left; }
+    th { background: #edf2f7; font-weight: 600; }
+    tr:nth-child(even) { background: #f7fafc; }
+    .summary-table td:first-child { font-weight: 500; width: 45%; }
+    .sig { color: #276749; font-weight: 600; }
+    .not-sig { color: #c53030; }
+    .lift-up { color: #276749; }
+    .lift-down { color: #c53030; }
+    .recommendation { font-weight: 600; padding: 4px 8px; border-radius: 4px; }
+    .rec-launch { background: #c6f6d5; color: #276749; }
+    .rec-abandon { background: #fed7d7; color: #c53030; }
+    .rec-iterate { background: #feebc8; color: #c05621; }
+    .rec-inconclusive { background: #e2e8f0; color: #4a5568; }
+    p { line-height: 1.5; margin: 8px 0; }
+    .chart-placeholder { background: #f7fafc; border: 1px dashed #cbd5e0; padding: 24px; text-align: center; color: #718096; margin: 12px 0; }
+    .week-of { color: #718096; font-size: 0.95em; }
+  </style>
+</head>
+<body>
+  <h1>Weekly Experimentation Report</h1>
+  <p class="week-of">Week of: Feb 23, 2026 – Mar 01, 2026</p>
+
+  <h2>Summary</h2>
+  <table class="summary-table">
+    <tr><td>Total Active Experiments</td><td>10</td></tr>
+    <tr><td>Statistically Significant</td><td>10</td></tr>
+    <tr><td>Recommended to Launch</td><td>7</td></tr>
+    <tr><td>Projected Monthly Revenue Impact</td><td>$952,661</td></tr>
+  </table>
+
+  <h2>Experiment Results</h2>
+  
+  <h3>Free Shipping Threshold</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,782</td>
+      <td>5,981</td>
+      <td>12.01%</td>
+      <td>$841,814</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,659</td>
+      <td>6,679</td>
+      <td>13.45%</td>
+      <td>$927,134</td>
+      <td>
+        
+        <span class="lift-up">+12.0% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [8.6%, 15.4%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $26,885/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_01_chart" alt="Chart for Free Shipping Threshold" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Payment Installments (6 vs 12 months)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,741</td>
+      <td>4,017</td>
+      <td>8.08%</td>
+      <td>$533,224</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,700</td>
+      <td>4,622</td>
+      <td>9.30%</td>
+      <td>$633,675</td>
+      <td>
+        
+        <span class="lift-up">+15.1% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [10.8%, 19.4%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $15,555/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_02_chart" alt="Chart for Payment Installments (6 vs 12 months)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>One-Page Checkout</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,700</td>
+      <td>7,437</td>
+      <td>14.96%</td>
+      <td>$1,025,311</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,741</td>
+      <td>7,885</td>
+      <td>15.85%</td>
+      <td>$1,083,856</td>
+      <td>
+        
+        <span class="lift-up">+6.0% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0001
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [2.9%, 9.0%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-iterate">ITERATE</span>
+    
+    – Projected $19,393/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_03_chart" alt="Chart for One-Page Checkout" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Review Solicitation Timing (3d vs 7d)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,349</td>
+      <td>10,831</td>
+      <td>21.95%</td>
+      <td>$1,469,613</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>50,092</td>
+      <td>13,175</td>
+      <td>26.30%</td>
+      <td>$1,830,863</td>
+      <td>
+        
+        <span class="lift-up">+19.8% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [17.4%, 22.2%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $158,992/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_04_chart" alt="Chart for Review Solicitation Timing (3d vs 7d)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Product Recommendations (Personalized vs Popular)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,732</td>
+      <td>4,912</td>
+      <td>9.88%</td>
+      <td>$672,874</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,709</td>
+      <td>5,534</td>
+      <td>11.13%</td>
+      <td>$759,056</td>
+      <td>
+        
+        <span class="lift-up">+12.7% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [8.8%, 16.5%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $19,088/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_05_chart" alt="Chart for Product Recommendations (Personalized vs Popular)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Delivery Speed Options (Standard vs Express)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,853</td>
+      <td>7,078</td>
+      <td>14.20%</td>
+      <td>$960,169</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,588</td>
+      <td>7,555</td>
+      <td>15.24%</td>
+      <td>$1,033,414</td>
+      <td>
+        
+        <span class="lift-up">+7.3% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [4.2%, 10.4%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-iterate">ITERATE</span>
+    
+    – Projected $21,674/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_06_chart" alt="Chart for Delivery Speed Options (Standard vs Express)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Seller Ratings Display (Show vs Hide)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,757</td>
+      <td>5,442</td>
+      <td>10.94%</td>
+      <td>$757,302</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,684</td>
+      <td>5,992</td>
+      <td>12.06%</td>
+      <td>$815,811</td>
+      <td>
+        
+        <span class="lift-up">+10.2% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [6.6%, 13.9%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $18,390/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_07_chart" alt="Chart for Seller Ratings Display (Show vs Hide)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Bundle Discounts (3 items for 10% off)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,767</td>
+      <td>12,391</td>
+      <td>24.90%</td>
+      <td>$1,721,441</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,674</td>
+      <td>14,440</td>
+      <td>29.07%</td>
+      <td>$1,978,515</td>
+      <td>
+        
+        <span class="lift-up">+15.2% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [1453.8%, 2755.0%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $524,000/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_08_chart" alt="Chart for Bundle Discounts (3 items for 10% off)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Guest Checkout (Guest vs Forced Registration)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>49,673</td>
+      <td>4,437</td>
+      <td>8.93%</td>
+      <td>$598,560</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,768</td>
+      <td>5,116</td>
+      <td>10.28%</td>
+      <td>$688,789</td>
+      <td>
+        
+        <span class="lift-up">+15.1% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0000
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [11.0%, 19.3%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-launch">LAUNCH</span>
+    
+    – Projected $18,684/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_09_chart" alt="Chart for Guest Checkout (Guest vs Forced Registration)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+  <h3>Dynamic Pricing (Demand-Based)</h3>
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conv Rate</th>
+      <th>Revenue</th>
+      <th>Lift</th>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>50,088</td>
+      <td>6,516</td>
+      <td>13.01%</td>
+      <td>$864,519</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td>Treatment</td>
+      <td>49,353</td>
+      <td>6,690</td>
+      <td>13.56%</td>
+      <td>$915,498</td>
+      <td>
+        
+        <span class="lift-up">+7.5% &#8593;</span>
+        
+      </td>
+    </tr>
+  </table>
+
+  <p><strong>Statistical Result:</strong>
+    p = 0.0126
+    
+    <span class="sig">(Significant &#10003;)</span>
+    
+  </p>
+  <p><strong>Confidence Interval:</strong> 95% CI: [161.4%, 1829.4%]</p>
+  <p><strong>Recommendation:</strong>
+    <span class="recommendation rec-iterate">ITERATE</span>
+    
+    – Projected $130,000/month revenue increase
+    
+  </p>
+
+  
+  <p><img src="cid:exp_10_chart" alt="Chart for Dynamic Pricing (Demand-Based)" style="max-width: 500px; height: auto;" /></p>
+  
+
+  
+
+  <p style="margin-top: 32px; color: #718096; font-size: 0.9em;">
+    Generated by E-Commerce Experimentation Platform. Report date: 2026-03-01 20:24.
+  </p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_010",
+  "experiment_name": "Dynamic Pricing (Demand-Based)",
+  "variant_stats": {
+    "n_control": 50088,
+    "n_treatment": 49353,
+    "conversions_control": 6516,
+    "conversions_treatment": 6690,
+    "conversion_rate_control": 0.1301,
+    "conversion_rate_treatment": 0.1356,
+    "revenue_total_control": 864518.88,
+    "revenue_total_treatment": 915498.15
+  },
+  "frequentist": {
+    "p_value": 0.01257710651085757,
+    "significant": true,
+    "decision": "ITERATE",
+    "relative_lift_pct": 7.51,
+    "ci_lower": 0.21,
+    "ci_upper": 2.38,
+    "achieved_power": 0.6494,
+    "monthly_revenue_impact": 130000.0
+  },
+  "bayesian": {
+    "prob_treatment_better": 0.99485,
+    "expected_loss_treatment": 3.7505642279536385e-06,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "ITERATE",
+  "p_value": 0.01257710651085757,
+  "revenue_impact_monthly": 130000.0
+}

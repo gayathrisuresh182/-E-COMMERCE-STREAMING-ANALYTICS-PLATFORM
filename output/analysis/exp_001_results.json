@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_001",
+  "experiment_name": "Free Shipping Threshold",
+  "variant_stats": {
+    "n_control": 49782,
+    "n_treatment": 49659,
+    "conversions_control": 5981,
+    "conversions_treatment": 6679,
+    "conversion_rate_control": 0.1201,
+    "conversion_rate_treatment": 0.1345,
+    "revenue_total_control": 841813.62,
+    "revenue_total_treatment": 927133.53
+  },
+  "frequentist": {
+    "p_value": 1.1243685217958827e-11,
+    "significant": true,
+    "decision": "LAUNCH",
+    "relative_lift_pct": 11.99,
+    "ci_lower": 0.0103,
+    "ci_upper": 0.0185,
+    "achieved_power": 1.0,
+    "monthly_revenue_impact": 26884.8
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "LAUNCH",
+  "p_value": 1.1243685217958827e-11,
+  "revenue_impact_monthly": 26884.8
+}

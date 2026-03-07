@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_003",
+  "experiment_name": "One-Page Checkout",
+  "variant_stats": {
+    "n_control": 49700,
+    "n_treatment": 49741,
+    "conversions_control": 7437,
+    "conversions_treatment": 7885,
+    "conversion_rate_control": 0.1496,
+    "conversion_rate_treatment": 0.1585,
+    "revenue_total_control": 1025311.0,
+    "revenue_total_treatment": 1083856.39
+  },
+  "frequentist": {
+    "p_value": 0.00010462298675748878,
+    "significant": true,
+    "decision": "ITERATE",
+    "relative_lift_pct": 5.95,
+    "ci_lower": 0.0044,
+    "ci_upper": 0.0134,
+    "achieved_power": 0.973,
+    "monthly_revenue_impact": 19393.1
+  },
+  "bayesian": {
+    "prob_treatment_better": 0.99994,
+    "expected_loss_treatment": 3.153015369974449e-08,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "ITERATE",
+  "p_value": 0.00010462298675748878,
+  "revenue_impact_monthly": 19393.1
+}

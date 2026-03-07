@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_004",
+  "experiment_name": "Review Solicitation Timing (3d vs 7d)",
+  "variant_stats": {
+    "n_control": 49349,
+    "n_treatment": 50092,
+    "conversions_control": 10831,
+    "conversions_treatment": 13175,
+    "conversion_rate_control": 0.2195,
+    "conversion_rate_treatment": 0.263,
+    "revenue_total_control": 1469613.22,
+    "revenue_total_treatment": 1830862.6
+  },
+  "frequentist": {
+    "p_value": 6.603044674357462e-58,
+    "significant": true,
+    "decision": "LAUNCH",
+    "relative_lift_pct": 19.82,
+    "ci_lower": 0.0382,
+    "ci_upper": 0.0488,
+    "achieved_power": 1.0,
+    "monthly_revenue_impact": 158992.5
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "LAUNCH",
+  "p_value": 6.603044674357462e-58,
+  "revenue_impact_monthly": 158992.5
+}

@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_002",
+  "experiment_name": "Payment Installments (6 vs 12 months)",
+  "variant_stats": {
+    "n_control": 49741,
+    "n_treatment": 49700,
+    "conversions_control": 4017,
+    "conversions_treatment": 4622,
+    "conversion_rate_control": 0.0808,
+    "conversion_rate_treatment": 0.093,
+    "revenue_total_control": 533223.52,
+    "revenue_total_treatment": 633675.0
+  },
+  "frequentist": {
+    "p_value": 7.289898907958692e-12,
+    "significant": true,
+    "decision": "LAUNCH",
+    "relative_lift_pct": 15.1,
+    "ci_lower": 0.0087,
+    "ci_upper": 0.0157,
+    "achieved_power": 1.0,
+    "monthly_revenue_impact": 15555.0
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "LAUNCH",
+  "p_value": 7.289898907958692e-12,
+  "revenue_impact_monthly": 15555.0
+}

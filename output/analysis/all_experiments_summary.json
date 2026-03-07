@@ -1,0 +1,93 @@
+{
+  "total_experiments": 10,
+  "statistically_significant": 10,
+  "launched": 7,
+  "abandoned": 0,
+  "iterate": 3,
+  "inconclusive": 0,
+  "testing_continue": 3,
+  "total_revenue_impact_monthly": 952660.9,
+  "total_revenue_impact_annual": 11431930.8,
+  "experiments": [
+    {
+      "experiment_id": "exp_001",
+      "name": "Free Shipping Threshold",
+      "recommendation": "LAUNCH",
+      "p_value": 1.1243685217958827e-11,
+      "significant": true,
+      "revenue_impact_monthly": 26884.8
+    },
+    {
+      "experiment_id": "exp_002",
+      "name": "Payment Installments (6 vs 12 months)",
+      "recommendation": "LAUNCH",
+      "p_value": 7.289898907958692e-12,
+      "significant": true,
+      "revenue_impact_monthly": 15555.0
+    },
+    {
+      "experiment_id": "exp_003",
+      "name": "One-Page Checkout",
+      "recommendation": "ITERATE",
+      "p_value": 0.00010462298675748878,
+      "significant": true,
+      "revenue_impact_monthly": 19393.1
+    },
+    {
+      "experiment_id": "exp_004",
+      "name": "Review Solicitation Timing (3d vs 7d)",
+      "recommendation": "LAUNCH",
+      "p_value": 6.603044674357462e-58,
+      "significant": true,
+      "revenue_impact_monthly": 158992.5
+    },
+    {
+      "experiment_id": "exp_005",
+      "name": "Product Recommendations (Personalized vs Popular)",
+      "recommendation": "LAUNCH",
+      "p_value": 1.0608552213369819e-10,
+      "significant": true,
+      "revenue_impact_monthly": 19087.5
+    },
+    {
+      "experiment_id": "exp_006",
+      "name": "Delivery Speed Options (Standard vs Express)",
+      "recommendation": "ITERATE",
+      "p_value": 3.856515006455117e-06,
+      "significant": true,
+      "revenue_impact_monthly": 21673.6
+    },
+    {
+      "experiment_id": "exp_007",
+      "name": "Seller Ratings Display (Show vs Hide)",
+      "recommendation": "LAUNCH",
+      "p_value": 2.8415495689407444e-08,
+      "significant": true,
+      "revenue_impact_monthly": 18390.4
+    },
+    {
+      "experiment_id": "exp_008",
+      "name": "Bundle Discounts (3 items for 10% off)",
+      "recommendation": "LAUNCH",
+      "p_value": 6.093675645792394e-48,
+      "significant": true,
+      "revenue_impact_monthly": 524000.0
+    },
+    {
+      "experiment_id": "exp_009",
+      "name": "Guest Checkout (Guest vs Forced Registration)",
+      "recommendation": "LAUNCH",
+      "p_value": 5.650147427140349e-13,
+      "significant": true,
+      "revenue_impact_monthly": 18684.0
+    },
+    {
+      "experiment_id": "exp_010",
+      "name": "Dynamic Pricing (Demand-Based)",
+      "recommendation": "ITERATE",
+      "p_value": 0.01257710651085757,
+      "significant": true,
+      "revenue_impact_monthly": 130000.0
+    }
+  ]
+}

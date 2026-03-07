@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_006",
+  "experiment_name": "Delivery Speed Options (Standard vs Express)",
+  "variant_stats": {
+    "n_control": 49853,
+    "n_treatment": 49588,
+    "conversions_control": 7078,
+    "conversions_treatment": 7555,
+    "conversion_rate_control": 0.142,
+    "conversion_rate_treatment": 0.1524,
+    "revenue_total_control": 960168.78,
+    "revenue_total_treatment": 1033413.92
+  },
+  "frequentist": {
+    "p_value": 3.856515006455117e-06,
+    "significant": true,
+    "decision": "ITERATE",
+    "relative_lift_pct": 7.32,
+    "ci_lower": 0.006,
+    "ci_upper": 0.0148,
+    "achieved_power": 0.9962,
+    "monthly_revenue_impact": 21673.6
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "ITERATE",
+  "p_value": 3.856515006455117e-06,
+  "revenue_impact_monthly": 21673.6
+}

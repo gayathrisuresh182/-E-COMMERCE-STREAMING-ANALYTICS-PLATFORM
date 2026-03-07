@@ -1,0 +1,28 @@
+# E-Commerce Streaming Analytics Platform
+# Install: pip install -r requirements.txt
+
+kaggle>=1.5.16
+boto3>=1.28.0
+dagster>=1.6.0
+dagster-webserver>=1.6.0
+dagster-gcp>=0.21.0
+dagster-aws>=0.21.0
+kafka-python>=2.0.2
+pandas>=2.0.0
+pyarrow>=14.0.0
+google-cloud-bigquery>=3.0.0
+pandas-gbq>=0.26.0
+pymongo>=4.0.0
+requests>=2.28.0
+scipy>=1.11.0
+statsmodels>=0.14.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+jupyter>=1.0.0
+numpy>=1.24.0
+papermill>=2.4.0
+openpyxl>=3.1.0
+jinja2>=3.1.0
+reportlab>=4.0.0
+pytest>=7.0.0
+python-dotenv>=1.0.0

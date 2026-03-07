@@ -1,0 +1,36 @@
+{
+  "experiment_id": "exp_007",
+  "experiment_name": "Seller Ratings Display (Show vs Hide)",
+  "variant_stats": {
+    "n_control": 49757,
+    "n_treatment": 49684,
+    "conversions_control": 5442,
+    "conversions_treatment": 5992,
+    "conversion_rate_control": 0.1094,
+    "conversion_rate_treatment": 0.1206,
+    "revenue_total_control": 757301.54,
+    "revenue_total_treatment": 815811.28
+  },
+  "frequentist": {
+    "p_value": 2.8415495689407444e-08,
+    "significant": true,
+    "decision": "LAUNCH",
+    "relative_lift_pct": 10.24,
+    "ci_lower": 0.0072,
+    "ci_upper": 0.0152,
+    "achieved_power": 0.9998,
+    "monthly_revenue_impact": 18390.4
+  },
+  "bayesian": {
+    "prob_treatment_better": 1.0,
+    "expected_loss_treatment": 0.0,
+    "recommendation": "LAUNCH TREATMENT"
+  },
+  "multi_metric": {
+    "decision": "STRONG LAUNCH",
+    "primary_significant": true
+  },
+  "recommendation": "LAUNCH",
+  "p_value": 2.8415495689407444e-08,
+  "revenue_impact_monthly": 18390.4
+}
