@@ -1,160 +1,123 @@
 # E-Commerce Streaming Analytics Platform
 
-Production-grade e-commerce analytics demonstrating **real-time event streaming** (Apache Kafka), **asset-oriented orchestration** (Dagster), **Lambda architecture** (batch + stream), and **statistical A/B testing** on the Olist Brazilian E-Commerce dataset.
+Production-grade e-commerce analytics combining **real-time event streaming** (Apache Kafka), **asset-oriented orchestration** (Dagster), **Lambda architecture** (batch + stream), **statistical A/B testing**, and a custom **React + FastAPI dashboard** — built on the Olist Brazilian E-Commerce dataset.
 
-## What This Project Demonstrates
-
-- **Dagster** – Asset-centric data orchestration (not task-centric)
-- **Apache Kafka** – Event streaming with multiple topics and retention
-- **Lambda architecture** – Batch (historical) + speed (real-time) layers
-- **A/B testing** – Experiment design and statistical analysis (scipy, statsmodels)
-- **Multi-cloud analytics** – BigQuery (primary), Redshift (comparison)
-- **NoSQL** – MongoDB for operational/semi-structured data
-- **Data quality** – Dagster asset checks and monitoring
-
-## Architecture (High Level)
+## Architecture
 
 ```
-Olist CSV (S3) ──► Dagster batch assets ──► BigQuery (staging → marts)
-       │
-       └── Simulated events ──► Kafka topics ──► Consumers ──► BigQuery / MongoDB
-                                                                      │
-Looker / Excel ◄──────────────────────────────────────────────────────┘
+Olist CSV ──► Dagster batch assets ──► BigQuery (staging → dims → facts → marts)
+    │                                         │
+    └── Kafka producers ──► Kafka topics ──► Consumers ──► BigQuery / MongoDB
+                                                                  │
+React Dashboard ◄── FastAPI ◄─────────────────────────────────────┘
 ```
 
-- **Batch layer:** Historical Olist data → Dagster jobs → BigQuery (partitioned facts, dimensions).
+- **Batch layer:** Historical Olist data → Dagster jobs → BigQuery (partitioned facts, dimensions, marts).
 - **Stream layer:** Kafka topics (orders, clickstream, payments, deliveries, reviews, experiments) → consumers → BigQuery + MongoDB.
-- **Serving layer:** Unified views (batch + stream) for dashboards and reporting.
+- **Serving layer:** Unified views (batch + stream) for the React dashboard via FastAPI.
 
 ## Tech Stack
 
-| Area           | Technology                          |
-|----------------|-------------------------------------|
-| Orchestration  | Dagster (asset-oriented)           |
-| Streaming      | Apache Kafka                        |
-| Analytics DB   | BigQuery, Redshift (optional)        |
-| NoSQL          | MongoDB                             |
-| Storage        | S3 (data lake)                      |
-| Statistics     | Python (scipy, statsmodels, pandas) |
-| BI             | Looker, Excel                        |
-| DevOps         | Docker Compose, GitHub Actions      |
+| Area           | Technology                              |
+|----------------|-----------------------------------------|
+| Orchestration  | Dagster (asset-oriented)                |
+| Streaming      | Apache Kafka (Confluent)                |
+| Analytics DB   | Google BigQuery                         |
+| NoSQL          | MongoDB Atlas                           |
+| API            | FastAPI + Uvicorn                       |
+| Dashboard      | React + TypeScript + Recharts + Tailwind|
+| Statistics     | Python (scipy, statsmodels, pandas)     |
+| Infrastructure | Docker Compose, GCP                     |
+
+## Dashboards
+
+| Dashboard | Key Features |
+|-----------|-------------|
+| **Real-Time Operations** | Live orders, GMV sparklines, heatmap, cancellation trends |
+| **A/B Testing Hub** | Experiment portfolio, cumulative conversion, CI bars, revenue impact |
+| **Customer Journey** | Conversion funnel, device/source breakdown, cart abandonment, time-to-convert |
+| **Business Performance** | 7-day MA trends, cohort retention heatmap, AOV distribution, WoW comparison |
+| **Data Quality** | Health gauge, Kafka consumer lag, SLA compliance calendar, pipeline throughput |
 
 ## Prerequisites
 
 - **Python** 3.10+
-- **Docker** and **Docker Compose** (for Kafka)
-- **Kaggle account** (for Olist dataset – Phase 1A)
-- **GCP** (BigQuery) and optionally **MongoDB** when you enable those layers
+- **Node.js** 18+ (for dashboard)
+- **Docker** and **Docker Compose** (for Kafka + MongoDB)
+- **GCP** project with BigQuery enabled
+- **Kaggle** account (for the Olist dataset)
 
 ## Quick Start
 
-### 0. (Phase 1A) Download Olist dataset
-
 ```bash
-pip install kaggle
-# Configure: Kaggle → Settings → API → Create New Token → save as ~/.kaggle/kaggle.json
-python scripts/download_olist.py
-python scripts/verify_olist_download.py
-```
+# 1. Clone and install
+pip install -e .
 
-See [docs/PHASE_1A_KAGGLE_SETUP.md](docs/PHASE_1A_KAGGLE_SETUP.md) for credentials and folder layout. CSVs go to `raw/olist/`.
-
-### 1. Clone and install Python dependencies
-
-```bash
-cd -E-COMMERCE-STREAMING-ANALYTICS-PLATFORM
-pip install -r requirements.txt
-# or: pip install -e .
-```
-
-### 2. Start Kafka (Phase 1E)
-
-```bash
+# 2. Start Kafka + MongoDB
 docker-compose up -d
-```
 
-Wait ~30 seconds, then create topics:
+# 3. Create Kafka topics
+python scripts/kafka/create_kafka_topics.py
 
-- **Windows (PowerShell):** `.\scripts\create_kafka_topics.ps1`
-- **Bash:** `bash scripts/create_kafka_topics.sh`
-- **Python:** `python scripts/create_kafka_topics.py`
-
-- **Kafka UI:** http://localhost:8080  
-- **Broker:** `localhost:9092`
-
-### 3. Start Dagster (Phase 1F)
-
-```bash
-# Optional: set DAGSTER_HOME to current directory so dagster.yaml is used
-set DAGSTER_HOME=%CD%        # Windows CMD
-$env:DAGSTER_HOME = (Get-Location).Path   # PowerShell
-export DAGSTER_HOME=$(pwd)   # Bash
-
+# 4. Start Dagster
+export DAGSTER_HOME=$(pwd)
 dagster dev -m ecommerce_analytics
+
+# 5. Start API
+uvicorn api.main:app --port 8000
+
+# 6. Start Dashboard
+cd dashboard && npm install && npm run dev
 ```
 
-- **Dagit UI:** http://localhost:3000  
-- You should see the asset graph (`raw_orders_csv` → `stg_orders` → `fct_orders`) and the `daily_batch_processing` job/schedule.
-
-### 4. Test Kafka (optional)
-
-Produce a test message:
-
-```bash
-docker exec -it kafka kafka-console-producer --bootstrap-server localhost:9092 --topic orders-stream
-# Type a line and press Enter
-```
-
-Consume:
-
-```bash
-docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic orders-stream --from-beginning
-```
+Or use the Makefile: `make all`
 
 ## Project Structure
 
 ```
-├── docker-compose.yml          # Kafka, Zookeeper, Kafka UI
-├── dagster.yaml                # Dagster instance config
-├── pyproject.toml              # Python package and deps
-├── requirements.txt
-├── scripts/
-│   ├── create_kafka_topics.sh  # Create Kafka topics (Bash)
-│   ├── create_kafka_topics.ps1 # Create Kafka topics (PowerShell)
-│   └── create_kafka_topics.py  # Create Kafka topics (Python)
-├── docs/
-│   └── KAFKA_TOPICS.md         # Topic design and retention
-└── ecommerce_analytics/        # Dagster code location
-    ├── __init__.py             # Definitions (assets, jobs, schedules, resources)
-    ├── assets/
-    │   └── __init__.py         # Placeholder assets (expand in Phase 3)
-    ├── jobs/
-    │   └── __init__.py         # daily_batch_processing job and schedule
-    └── resources/
-        ├── __init__.py
-        └── config.py           # Kafka, BigQuery, MongoDB, Slack resources
+├── api/                          # FastAPI backend
+│   ├── main.py                   #   App entry point
+│   ├── db.py                     #   BigQuery + MongoDB clients
+│   └── routers/                  #   Route handlers per dashboard
+│
+├── dashboard/                    # React + TypeScript frontend
+│   └── src/
+│       ├── api.ts                #   API client
+│       ├── components/           #   Layout, shared components
+│       └── pages/                #   One page per dashboard
+│
+├── ecommerce_analytics/          # Dagster code location
+│   ├── assets/                   #   Data assets (staging, dims, facts, marts)
+│   ├── consumers/                #   Kafka consumers
+│   ├── analysis/                 #   Statistical frameworks (Bayesian, power)
+│   ├── jobs/                     #   Dagster jobs and schedules
+│   ├── sensors/                  #   Stream and report sensors
+│   └── resources/                #   BigQuery, Kafka, MongoDB configs
+│
+├── scripts/                      # Operational scripts
+│   ├── data/                     #   Data download, generation, loading
+│   ├── bigquery/                 #   BigQuery DDL and data loading
+│   ├── kafka/                    #   Topic creation, producers, consumers
+│   ├── mongodb/                  #   Collection setup and data loading
+│   ├── sync/                     #   Cross-system sync (realtime, monitoring)
+│   ├── analysis/                 #   Excel workbook, CSV export
+│   └── infra/                    #   S3 bucket setup
+│
+├── tests/                        # Integration and verification tests
+├── docs/                         # Documentation by phase
+│   ├── architecture/
+│   ├── phase-1-infrastructure/
+│   ├── phase-2-data-generation/
+│   ├── phase-3-batch-layer/
+│   ├── phase-4-analysis/
+│   └── phase-5-dashboards/
+│
+├── raw/olist/                    # Raw Olist CSVs (gitignored)
+├── output/                       # Generated artifacts (gitignored)
+├── docker-compose.yml            # Kafka, Zookeeper, MongoDB, Kafka UI
+├── dagster.yaml                  # Dagster instance config
+└── pyproject.toml                # Python package and dependencies
 ```
-
-## Datasets: Olist Brazilian E-Commerce
-
-- **Source:** [Kaggle – Brazilian E-Commerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)  
-- **Scale:** ~100k orders, 8 CSV tables (orders, order_items, payments, reviews, products, customers, sellers, geolocation).  
-- **Use:** Batch assets from S3/CSV; Kafka producers will simulate real-time events from this data.
-
-## Execution Plan (Phases)
-
-| Phase | Focus |
-|-------|--------|
-| 1 | Infrastructure (S3, MongoDB, BigQuery, **Kafka**, **Dagster**) |
-| 2 | Data generation (experiments, event streams) |
-| 3 | Batch layer (Dagster assets: staging → dimensions → facts) |
-| 4 | Streaming (Kafka producers/consumers, stream assets) |
-| 5 | Statistical analysis (A/B tests, notebooks) |
-| 6 | BI dashboards, monitoring, quality checks |
-| 7 | Testing and CI/CD |
-| 8 | Documentation and runbooks |
-
-**Current:** Phase 1E (Kafka) and 1F (Dagster) are set up. Next: load Olist data, define real assets, then add producers/consumers.
 
 ## Kafka Topics
 
@@ -168,15 +131,19 @@ docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 -
 | reviews-stream    | 3          | 7 days    | Review events        |
 | experiments-stream| 3          | 30 days   | Experiment assigns   |
 
-See [docs/KAFKA_TOPICS.md](docs/KAFKA_TOPICS.md) for partition and retention rationale.
+## Key Design Decisions
 
-## Dagster vs Airflow
+- **Dagster over Airflow** — Asset-oriented, not task-oriented. Dependencies come from data, not manual DAG wiring.
+- **Lambda architecture** — Batch (historical completeness) + stream (real-time freshness) with unified BigQuery views.
+- **React over Looker** — Full control over UX, professional portfolio presentation, no vendor lock-in.
+- **Statistical rigor** — A/B tests include p-values, confidence intervals, power analysis, and Bayesian framework.
 
-- **Asset-oriented:** You define *data products* (assets) and dependencies; Dagster infers execution order.  
-- **No manual DAG edges:** Dependencies come from asset inputs/outputs.  
-- **Asset checks:** Data quality lives next to assets and can block downstream materialization.  
-- **Partitioning:** First-class support for daily (or custom) partitions and backfills.
+## Dataset
 
-## License and Use
+- **Source:** [Olist Brazilian E-Commerce (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+- **Scale:** ~100K orders, 8 CSV tables
+- **Use:** Batch assets from CSV; Kafka producers simulate real-time events from this data.
 
-This is a portfolio/learning project. Olist dataset is subject to Kaggle/Olist terms.
+## License
+
+Portfolio/learning project. Olist dataset is subject to Kaggle/Olist terms.

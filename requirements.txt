@@ -1,5 +1,6 @@
 # E-Commerce Streaming Analytics Platform
-# Install: pip install -r requirements.txt
+# Prefer: pip install -e ".[api]"  (uses pyproject.toml)
+# Fallback: pip install -r requirements.txt
 
 kaggle>=1.5.16
 boto3>=1.28.0
@@ -26,3 +27,9 @@ jinja2>=3.1.0
 reportlab>=4.0.0
 pytest>=7.0.0
 python-dotenv>=1.0.0
+
+# API (FastAPI dashboard backend)
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.0.0
+dnspython>=2.4.0

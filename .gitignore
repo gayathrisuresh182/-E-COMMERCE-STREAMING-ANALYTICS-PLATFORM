@@ -28,6 +28,7 @@ env/
 
 # Dagster
 .dagster/
+.tmp_dagster_home_*/
 
 # Environment and secrets
 .env
@@ -39,6 +40,7 @@ env/
 .vscode/
 *.swp
 *.swo
+.cursor/
 
 # OS
 .DS_Store
@@ -47,11 +49,26 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 
-# Data (large files – use DVC or external storage)
+# Data (large files)
 data/
 *.csv
 raw/olist/*.csv
 !docs/**/*.csv
+
+# Generated output
+output/
+!output/.gitkeep
+
+# Node modules
+node_modules/
+scripts/node_modules/
+
+# Telemetry & cache
+.nux/
+.telemetry/
+
+# Large data files
+*.ndjson
 
 # Logs and temp
 *.log

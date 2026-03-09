@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    background: #F0F4F8;
+    color: #1A202C;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  /* ─── Card ─── */
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04),
+                0 1px 2px rgba(0, 0, 0, 0.03),
+                0 4px 12px rgba(0, 0, 0, 0.04),
+                0 8px 24px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.3s ease, transform 0.25s ease;
+  }
+  .card:hover {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06),
+                0 2px 4px rgba(0, 0, 0, 0.04),
+                0 8px 24px rgba(0, 0, 0, 0.06),
+                0 16px 40px rgba(0, 0, 0, 0.04);
+  }
+
+  /* ─── KPI card ─── */
+  .kpi-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04),
+                0 1px 2px rgba(0, 0, 0, 0.03),
+                0 4px 12px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06),
+                0 4px 12px rgba(0, 0, 0, 0.06),
+                0 12px 32px rgba(0, 0, 0, 0.05);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent, #4C6FFF);
+  }
+
+  /* ─── Section header ─── */
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1A202C;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .section-sub {
+    font-size: 13px;
+    font-weight: 400;
+    color: #94A3B8;
+    margin-top: 3px;
+    letter-spacing: 0;
+  }
+
+  /* ─── KPI typography ─── */
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1A202C;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+  .kpi-value-sm {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1A202C;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  /* ─── Badge ─── */
+  .badge-live {
+    color: #22543D;
+    background: #F0FFF4;
+    border: 1px solid #C6F6D5;
+    font-weight: 700;
+  }
+
+  /* ─── Table ─── */
+  .data-table {
+    width: 100%;
+    font-size: 13px;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  .data-table thead th {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 12px;
+    border-bottom: 2px solid #EDF2F7;
+    text-align: left;
+  }
+  .data-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #F1F5F9;
+    color: #4A5568;
+    vertical-align: middle;
+  }
+  .data-table tbody tr:hover {
+    background: #F8FAFC;
+  }
+}
+
+/* ─── Recharts ─── */
+.recharts-cartesian-grid line { stroke: #EDF2F7; }
+.recharts-text { fill: #94A3B8 !important; font-size: 11px !important; font-weight: 500 !important; font-family: 'Inter', system-ui, sans-serif !important; }
+.recharts-tooltip-wrapper { outline: none; }
+.recharts-default-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+  padding: 12px 16px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+.recharts-default-tooltip .recharts-tooltip-label {
+  color: #1A202C !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  margin-bottom: 6px !important;
+}
+.recharts-default-tooltip .recharts-tooltip-item {
+  color: #4A5568 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.recharts-legend-item-text { color: #4A5568 !important; font-size: 12px !important; font-weight: 500 !important; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E0; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #A0AEC0; }
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-fade { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-d1 { animation-delay: 0.03s; }
+.anim-d2 { animation-delay: 0.06s; }
+.anim-d3 { animation-delay: 0.09s; }
+.anim-d4 { animation-delay: 0.12s; }
+.anim-d5 { animation-delay: 0.15s; }
+.anim-d6 { animation-delay: 0.18s; }
