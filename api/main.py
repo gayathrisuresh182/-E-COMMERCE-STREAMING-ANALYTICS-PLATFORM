@@ -17,7 +17,7 @@ from fastapi.staticfiles import StaticFiles
 ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT / ".env")
 
-from api.routers import business, experiments, funnel, monitoring, realtime  # noqa: E402
+from api.routers import agent, business, experiments, funnel, monitoring, realtime  # noqa: E402
 
 app = FastAPI(
     title="E-Commerce Analytics API",
@@ -38,6 +38,7 @@ app.include_router(experiments.router, prefix="/api/experiments", tags=["A/B Tes
 app.include_router(funnel.router, prefix="/api/funnel", tags=["Customer Journey"])
 app.include_router(business.router, prefix="/api/business", tags=["Business Performance"])
 app.include_router(monitoring.router, prefix="/api/monitoring", tags=["Data Quality"])
+app.include_router(agent.router, prefix="/api/agent", tags=["AI Agent"])
 
 DASHBOARD_BUILD = ROOT / "dashboard" / "dist"
 if DASHBOARD_BUILD.exists():

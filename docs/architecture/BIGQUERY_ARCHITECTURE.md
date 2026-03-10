@@ -18,10 +18,10 @@ The warehouse uses four datasets, each with a distinct purpose and retention pol
 
 | Dataset | Purpose | Contents | Retention | Write Pattern |
 |---------|---------|----------|-----------|---------------|
-| **staging** | Cleaned, validated source data | `stg_orders`, `stg_customers`, `stg_products`, `stg_sellers` | 2 years | Batch load via Dagster |
-| **marts** | Dimensional model (star schema) | Fact and dimension tables | 2 years | Batch load via Dagster |
-| **realtime** | Streaming events from Kafka | `realtime_orders`, `realtime_clickstream` | 7 days | Streaming insert API |
-| **experiments** | A/B test results and assignments | `experiment_results`, `experiment_assignments` | 2 years | Batch + streaming |
+| **staging** | Cleaned, validated source data | `stg_orders`, `stg_customers`, `stg_products`, `stg_order_items`, `stg_reviews` | 2 years | Batch load via Dagster |
+| **marts** | Dimensional model (star schema) | Fact tables, dimension tables, experiment views, unified views | 2 years | Batch load via Dagster |
+| **realtime** | Streaming events from Kafka | `realtime_orders`, `realtime_metrics` | 7 days | Streaming insert API |
+| **monitoring** | Pipeline health metrics | `consumer_health_metrics` | 30 days | Kafka consumer writes |
 
 > **Why four datasets instead of one?** Dataset-level separation in BigQuery maps to IAM boundaries. In production, data engineers have write access to staging, analysts have read-only access to marts, and the streaming consumer service account only touches realtime. This is defense-in-depth — a misconfigured query against staging cannot accidentally corrupt mart tables.
 
@@ -42,12 +42,13 @@ The marts dataset follows a **star schema** pattern — fact tables at the cente
 
 ### Dimension Tables
 
-| Table | Grain | Key Attributes | Approx. Rows |
-|-------|-------|----------------|--------------|
-| `dim_customers` | One row per customer | State, city, zip prefix, customer segment | ~99K |
-| `dim_products` | One row per product | Category, weight, dimensions, description length | ~33K |
-| `dim_sellers` | One row per seller | State, city, zip prefix | ~3K |
-| `dim_dates` | One row per calendar date | Day of week, month, quarter, year, is_weekend, is_holiday | ~1,100 |
+| Table | Grain | Key Attributes | Derived Fields | Approx. Rows |
+|-------|-------|----------------|----------------|--------------|
+| `dim_customers` | One row per customer | State, city, zip prefix, region | `customer_tier` (VIP/Regular/New), `customer_value`, `total_orders`, `total_spent`, `avg_order_value` | ~99K |
+| `dim_products` | One row per product | Category, weight, dimensions | `product_category_group`, `product_volume_cm3`, `product_size_category` (S/M/L/XL) | ~33K |
+| `dim_sellers` | One row per seller | Total orders, revenue, review score | `seller_tier` (Platinum/Gold/Silver/Bronze), `avg_delivery_time_days` | ~3K |
+
+These dimension tables are created by `scripts/bigquery/bigquery_create_dimension_tables.py`, which derives enriched fields from staging table joins. The script is idempotent (uses `CREATE OR REPLACE TABLE ... AS SELECT`).
 
 > **Why star schema over OBT (One Big Table)?** An OBT (pre-joined, fully denormalized table) is simpler to query but expensive to maintain — every dimension change requires a full table rebuild. Star schema lets dimension tables update independently, reduces storage through normalization, and aligns with how BI tools (Looker, Tableau) generate SQL.
 
@@ -83,38 +84,50 @@ Clustering sorts data within partitions for additional scan reduction. BigQuery 
 
 The unified views are the implementation of the Lambda architecture's **serving layer**. They combine batch mart data with real-time streaming data, giving consumers a single queryable interface regardless of when an event occurred.
 
+Two views are currently materialized:
+
+| View | Batch Source | Stream Source | Total Rows |
+|------|-------------|--------------|------------|
+| `marts.fct_orders_unified` | `marts.fct_orders` (99,441) | `realtime.realtime_orders` (500) | ~99,941 |
+| `marts.daily_metrics_unified` | `marts.fct_daily_metrics` (634) | `realtime.realtime_metrics` (4 windows) | ~638 |
+
 ### How It Works
 
 ```sql
-CREATE OR REPLACE VIEW marts.unified_orders AS
+CREATE OR REPLACE VIEW marts.fct_orders_unified AS
 SELECT
     order_id,
-    customer_id,
-    order_total,
+    DATE(order_purchase_timestamp) AS order_date,
     order_status,
-    order_purchase_date,
-    'batch' AS source_layer
+    order_total,
+    customer_id,
+    customer_state,
+    'batch' AS _source_layer,
+    order_purchase_timestamp AS _timestamp
 FROM marts.fct_orders
-WHERE order_purchase_date < CURRENT_DATE() - INTERVAL 2 DAY
 
 UNION ALL
 
 SELECT
     order_id,
-    customer_id,
+    DATE(event_timestamp) AS order_date,
+    COALESCE(order_status, event_type) AS order_status,
     order_total,
-    order_status,
-    event_timestamp AS order_purchase_date,
-    'realtime' AS source_layer
+    customer_id,
+    customer_state,
+    'stream' AS _source_layer,
+    event_timestamp AS _timestamp
 FROM realtime.realtime_orders
-WHERE event_timestamp >= CURRENT_DATE() - INTERVAL 2 DAY
 ```
 
 ### Critical Design Considerations
 
-- **Overlap window:** The 2-day buffer prevents gaps. Batch processing may not have caught up to "yesterday" yet, so the realtime layer covers the gap. Once batch processes that day's data, the unified view seamlessly switches to the batch version.
-- **Deduplication:** The `source_layer` column lets downstream consumers filter or deduplicate if both layers contain the same order during the overlap window.
-- **Schema alignment:** Batch and realtime tables must expose the same columns with the same types. Schema drift between the two is the most common source of unified view failures.
+- **No date filtering:** The batch data (2016-2018) and stream data (current timestamps) occupy different time ranges in this platform, so no overlap window or deduplication is needed. A production system with real concurrent data would add `WHERE` clauses or `ROW_NUMBER()` deduplication.
+- **Source layer column:** `_source_layer` (`batch` or `stream`) identifies the origin of each row, enabling downstream filtering or debugging.
+- **Schema alignment:** Batch and realtime tables must expose the same columns with the same types. Schema drift between the two is the most common source of unified view failures. The view definitions use explicit `SELECT` lists with `COALESCE` to handle column name differences.
+- **Creation script:** `scripts/bigquery/bigquery_create_unified_views.py` creates both views and runs verification queries. It is idempotent.
+
+> For a deeper discussion of the Lambda architecture design, batch/stream paths, and dimension table derivation, see [LAMBDA_ARCHITECTURE.md](LAMBDA_ARCHITECTURE.md).
 
 ---
 

@@ -26,6 +26,7 @@ React Dashboard ◄── FastAPI ◄──────────────�
 | NoSQL          | MongoDB Atlas                           |
 | API            | FastAPI + Uvicorn                       |
 | Dashboard      | React + TypeScript + Recharts + Tailwind|
+| AI Agent       | LangGraph + Claude Sonnet 4 (Anthropic) |
 | Statistics     | Python (scipy, statsmodels, pandas)     |
 | Infrastructure | Docker Compose, GCP                     |
 
@@ -38,6 +39,7 @@ React Dashboard ◄── FastAPI ◄──────────────�
 | **Customer Journey** | Conversion funnel, device/source breakdown, cart abandonment, time-to-convert |
 | **Business Performance** | 7-day MA trends, cohort retention heatmap, AOV distribution, WoW comparison |
 | **Data Quality** | Health gauge, Kafka consumer lag, SLA compliance calendar, pipeline throughput |
+| **AI Operations Agent** | Natural language queries, multi-step reasoning, anomaly detection, inline charts, conversation memory |
 
 ## Prerequisites
 
@@ -78,13 +80,17 @@ Or use the Makefile: `make all`
 ├── api/                          # FastAPI backend
 │   ├── main.py                   #   App entry point
 │   ├── db.py                     #   BigQuery + MongoDB clients
-│   └── routers/                  #   Route handlers per dashboard
+│   ├── routers/                  #   Route handlers per dashboard
+│   └── agent/                    #   LangGraph AI agent
+│       ├── graph.py              #     StateGraph with MemorySaver
+│       ├── tools.py              #     11 tools (BigQuery, MongoDB, Kafka, charts)
+│       └── prompts.py            #     Schema-aware system prompt
 │
 ├── dashboard/                    # React + TypeScript frontend
 │   └── src/
 │       ├── api.ts                #   API client
 │       ├── components/           #   Layout, shared components
-│       └── pages/                #   One page per dashboard
+│       └── pages/                #   One page per dashboard + AI agent chat
 │
 ├── ecommerce_analytics/          # Dagster code location
 │   ├── assets/                   #   Data assets (staging, dims, facts, marts)
@@ -105,12 +111,12 @@ Or use the Makefile: `make all`
 │
 ├── tests/                        # Integration and verification tests
 ├── docs/                         # Documentation by phase
-│   ├── architecture/
-│   ├── phase-1-infrastructure/
-│   ├── phase-2-data-generation/
-│   ├── phase-3-batch-layer/
-│   ├── phase-4-analysis/
-│   └── phase-5-dashboards/
+│   ├── architecture/             #   BigQuery, Kafka, Lambda architecture
+│   ├── phase-1-infrastructure/   #   S3, MongoDB, Kafka setup
+│   ├── phase-2-data-generation/  #   Experiments, clickstream, producers
+│   ├── phase-3-batch-layer/      #   Dagster assets, consumers, jobs
+│   ├── phase-4-analysis/         #   Statistical frameworks, A/B testing
+│   └── phase-5-dashboards/       #   React dashboard + AI agent
 │
 ├── raw/olist/                    # Raw Olist CSVs (gitignored)
 ├── output/                       # Generated artifacts (gitignored)
@@ -137,6 +143,7 @@ Or use the Makefile: `make all`
 - **Lambda architecture** — Batch (historical completeness) + stream (real-time freshness) with unified BigQuery views.
 - **React over Looker** — Full control over UX, professional portfolio presentation, no vendor lock-in.
 - **Statistical rigor** — A/B tests include p-values, confidence intervals, power analysis, and Bayesian framework.
+- **LangGraph over basic LLM wrapper** — Custom StateGraph with tool orchestration, persistent memory, and anomaly detection. The agent executes real queries against live data, not templated responses.
 
 ## Dataset
 

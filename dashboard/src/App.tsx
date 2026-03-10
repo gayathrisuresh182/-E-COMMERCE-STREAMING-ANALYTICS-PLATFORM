@@ -6,6 +6,7 @@ import ABTesting from './pages/ABTesting'
 import CustomerJourney from './pages/CustomerJourney'
 import BusinessPerformance from './pages/BusinessPerformance'
 import DataQuality from './pages/DataQuality'
+import Agent from './pages/Agent'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="funnel" element={<CustomerJourney />} />
         <Route path="business" element={<BusinessPerformance />} />
         <Route path="quality" element={<DataQuality />} />
+        <Route path="agent" element={<Agent />} />
       </Route>
     </Routes>
   )
